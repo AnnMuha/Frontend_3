@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <script defer src="script.js"></script>
+        <title>Таймери зворотного відліку</title>
+    </head>
+    <body>
+        <h1>Таймери зворотного відліку</h1>
+        <div class="timer">
+            <div class="timer-display" id="timer1-display">01:00:00</div>
+            <button onclick="startTimer(0)">Старт</button>
+            <button onclick="stopTimer(0)">Стоп</button>
+            <button onclick="resetTimer(0, 1, 0, 0)">Скидання</button>
+        </div>
+
+        <div class="timer">
+            <div class="timer-display" id="timer2-display">00:30:00</div>
+            <button onclick="startTimer(1)">Старт</button>
+            <button onclick="stopTimer(1)">Стоп</button>
+            <button onclick="resetTimer(1, 0, 30, 0)">Скидання</button>
+        </div>
+
+        <div class="timer">
+            <div class="timer-display" id="timer3-display">00:10:00</div>
+            <button onclick="startTimer(2)">Старт</button>
+            <button onclick="stopTimer(2)">Стоп</button>
+            <button onclick="resetTimer(2, 0, 10, 0)">Скидання</button>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,22 @@
+body {
+    overflow: hidden;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.block {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #3498db;
+    border-radius: 5px;
+}
+.block:nth-child(1) { background-color: #e74c3c; }
+.block:nth-child(2) { background-color: #2ecc71; }
+.block:nth-child(3) { background-color: #9b59b6; }
+.block:nth-child(4) { background-color: #f1c40f; }
+.block:nth-child(5) { background-color: #1abc9c; }
