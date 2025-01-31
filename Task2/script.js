@@ -1,55 +1,65 @@
-const timers = [
-    { hours: 1, minutes: 0, seconds: 0, intervalId: null, displayId: 'timer1-display' },
-    { hours: 0, minutes: 30, seconds: 0, intervalId: null, displayId: 'timer2-display' },
-    { hours: 0, minutes: 10, seconds: 0, intervalId: null, displayId: 'timer3-display' }
-];
+class Timer {
+    constructor(hours, minutes, seconds, displayId) {
+        this.hours = hours;
+        this.minutes = minutes;
+        this.seconds = seconds;
+        this.displayId = displayId;
+        this.intervalId = null;
+    }
 
-function formatTime(hours, minutes, seconds) {
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-}
+    formatTime() {
+        return `${this.hours.toString().padStart(2, '0')}:${this.minutes.toString().padStart(2, '0')}:${this.seconds.toString().padStart(2, '0')}`;
+    }
 
-function updateDisplay(timerIndex) {
-    const timer = timers[timerIndex];
-    document.getElementById(timer.displayId).textContent = formatTime(timer.hours, timer.minutes, timer.seconds);
-}
+    updateDisplay() {
+        document.getElementById(this.displayId).textContent = this.formatTime();
+    }
 
-function startTimer(timerIndex) {
-    const timer = timers[timerIndex];
-    if (timer.intervalId) return;  // перевіряє, чи вже працює цей таймер (intervalId не має бути null).
+    start() {
+        if (this.intervalId) return;
 
-    timer.intervalId = setInterval(() => {
-        if (timer.hours === 0 && timer.minutes === 0 && timer.seconds === 0) {
-            stopTimer(timerIndex);  // зупиняємо таймер при досягненні 00:00:00
-            return;
-        }
-        if (timer.seconds === 0) {
-            if (timer.minutes === 0) {
-                if (timer.hours > 0) {
-                    timer.hours--;
-                    timer.minutes = 59;
+        this.intervalId = setInterval(() => {
+            if (this.hours === 0 && this.minutes === 0 && this.seconds === 0) {
+                this.stop();
+                return;
+            }
+            this.updateTime();
+            this.updateDisplay();
+        }, 1000);
+    }
+
+    stop() {
+        clearInterval(this.intervalId);
+        this.intervalId = null;
+    }
+
+    reset(hours, minutes, seconds) {
+        this.stop();
+        this.hours = hours;
+        this.minutes = minutes;
+        this.seconds = seconds;
+        this.updateDisplay();
+    }
+
+    updateTime() {
+        if (this.seconds === 0) {
+            if (this.minutes === 0) {
+                if (this.hours > 0) {
+                    this.hours--;
+                    this.minutes = 59;
                 }
             } else {
-                timer.minutes--;
+                this.minutes--;
             }
-            timer.seconds = 59;
+            this.seconds = 59;
         } else {
-            timer.seconds--;
+            this.seconds--;
         }
-        updateDisplay(timerIndex);
-    }, 1000);
+    }
 }
 
-function stopTimer(timerIndex) {
-    const timer = timers[timerIndex];
-    clearInterval(timer.intervalId);
-    timer.intervalId = null;
-}
-
-function resetTimer(timerIndex, hours, minutes, seconds) {
-    stopTimer(timerIndex);
-    const timer = timers[timerIndex];
-    timer.hours = hours;
-    timer.minutes = minutes;
-    timer.seconds = seconds;
-    updateDisplay(timerIndex);
-}
+const timers = [
+    new Timer(1, 0, 0, 'timer1-display'),
+    new Timer(0, 30, 0, 'timer2-display'),
+    new Timer(0, 10, 0, 'timer3-display')
+];
